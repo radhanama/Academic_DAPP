@@ -1,11 +1,12 @@
 import { ethers } from "ethers";
+import { AcademicToken, pathContracts } from "../contractsAdresses";
 
-const AcademicTokenAbi = require("../smartContract/artifacts/contracts/AcademicToken.sol/AcademicToken.json")
+const AcademicTokenAbi = require(`${pathContracts}/AcademicToken.sol/AcademicToken.json`)
 
 export class AcademicTokenServices
 {
     constructor(provider){
-        const academicContract = new ethers.Contract("0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9", AcademicTokenAbi.abi, provider);
+        const academicContract = new ethers.Contract(AcademicToken, AcademicTokenAbi.abi, provider);
         this.academicContractWithSigner = academicContract.connect(provider.getSigner());
     }
     async transfer(address, amount){
