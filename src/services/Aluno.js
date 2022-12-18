@@ -1,16 +1,15 @@
 import { ethers } from "ethers";
-import { AlunoContract, pathContracts } from "../contractsAdresses";
+import { AlunoContract } from "../contractsAdresses";
 
-const AlunoAbi = require(`${pathContracts}/AlunoContract.sol/AlunoContract.json`)
+const AlunoAbi = require("../smartContract/artifacts/contracts/AlunoContract.sol/AlunoContract.json")
 
-export class AlunoServices
-{
-    constructor(provider){
+export class AlunoServices {
+    constructor(provider) {
         const academicContract = new ethers.Contract(AlunoContract, AlunoAbi.abi, provider);
         this.academicContractWithSigner = academicContract.connect(provider.getSigner());
     }
-    async insert(address, amount){
-        const result = await this.academicContractWithSigner.inserirAluno(address, amount)
+    async insert(id, name) {
+        const result = await this.academicContractWithSigner.inserirAluno(id, name)
         return result;
     }
 }
