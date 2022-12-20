@@ -11,5 +11,4 @@ interface IAlunoContract{
     function setAluno(uint id, Aluno memory aluno) external;
 
     function getAlunoById(uint id) external view returns (Aluno memory);
-
 }
