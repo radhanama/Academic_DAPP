@@ -8,4 +8,3 @@ contract AcademicToken is ERC20 {
         _mint(msg.sender, 10000);
     }
 }
-

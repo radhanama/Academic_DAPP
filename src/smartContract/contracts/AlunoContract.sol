@@ -9,9 +9,7 @@ import "./IAlunoContract.sol";
 contract AlunoContract is IAlunoContract{
 
     mapping(uint => Aluno) alunoById;
-
     address owner;
-
     address private _academicContractAddr;
 
     modifier onlyOwner(){

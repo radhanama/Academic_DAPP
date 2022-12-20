@@ -50,7 +50,6 @@ contract Academic {
         disciplinaById[id] = Disciplina(id, nome, professor);
    }
 
-
    function inserirNota(uint alunoId, uint disciplinaId, uint8 nota) onlyProfessor(disciplinaId) public {
        require(bytes(IAlunoContract(_alunoContractAddr).getAlunoById(alunoId).nome).length != 0, "Aluno nao existente");
        require(etapa == Periodo.LANCAMENTO_NOTAS, "Fora do periodo de lancamento de notas");
