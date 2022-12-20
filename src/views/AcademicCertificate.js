@@ -1,10 +1,10 @@
 import React from 'react';
 
-function AcademicToken(props) {
+function AcademicCertificate(props) {
 
-    function tranfere() {
+    function awardCertificate() {
         if (props.academic) {
-            props.academic.transfer(1)
+            props.academic.awardCertificate(1)
                 .them(
                     x => {
                         if (x === undefined)
@@ -17,9 +17,9 @@ function AcademicToken(props) {
 
     return (
         <div>
-            <button type="button" onClick={tranfere}>Transfere!</button>
+            <button type="button" onClick={awardCertificate}>Receber meu certificado!</button>
         </div>
     )
 }
 
-export default AcademicToken;
+export default AcademicCertificate;
