@@ -6,7 +6,7 @@ import "./AcademicTypes.sol";
 
 interface IAlunoContract{
 
-    function inserirAluno(uint id, string memory nome) external;
+    function updateAluno(Aluno memory aluno) external;
 
     function setAluno(uint id, Aluno memory aluno) external;
 

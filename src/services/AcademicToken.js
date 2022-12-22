@@ -8,7 +8,7 @@ export class AcademicTokenServices {
         const academicContract = new ethers.Contract(AcademicToken, AcademicTokenAbi.abi, provider);
         this.academicContractWithSigner = academicContract.connect(provider.getSigner());
     }
-    async transfer(address, amount) {
+    async transfer(amount) {
         const result = await this.academicContractWithSigner.transfer(this.academicContractWithSigner.address, amount)
         return result;
     }

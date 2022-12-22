@@ -3,9 +3,9 @@
 pragma solidity >=0.7.0 <0.9.0;
 
 import "./AcademicTypes.sol";
-import {AcademicUtils} from "./AcademicUtils.sol";
 import "./IAlunoContract.sol";
 import "./AcademicCertificate.sol";
+import "./AlunoContract.sol";
 
 /**
  * @title Academic
@@ -45,11 +45,13 @@ contract Academic {
 			_alunoContractAddr = alunoContractAddr;
 	}
 
-	// function setAlunoGraduated(uint alunoId) public onlyOwner {
-	// 	require(bytes(IAlunoContract(_alunoContractAddr).getAlunoById(alunoId).nome).length != 0, "Aluno nao existente");
+	function setAlunoGraduated(uint alunoId) public onlyOwner {
+		require(bytes(IAlunoContract(_alunoContractAddr).getAlunoById(alunoId).nome).length != 0, "Aluno nao existente");
 
-	// 	AlunoContract(_alunoContractAddr).getAlunoById(alunoById);
-	// }
+		Aluno memory aluno = AlunoContract(_alunoContractAddr).getAlunoById(alunoId);
+        aluno.isGraduated = true;
+        AlunoContract(_alunoContractAddr).updateAluno(aluno);
+	}
 
 	function abrirLancamentoNota() onlyOwner public {
 			etapaAlunos = Periodo.LANCAMENTO_NOTAS;
@@ -60,9 +62,6 @@ contract Academic {
 			require(etapaAlunos == Periodo.LANCAMENTO_NOTAS, "Fora do periodo de lancamento de notas");
 
 			alunoIdToDisciplinaIdToNota[alunoId][disciplinaId] = nota;
-	//    alunosByDisciplina[disciplinaId].push(alunoId);
-
-	//    AcademicUtils.soma(1, 2);
 	}
 
 	function getNotaAlunoByDisciplinaId(uint alunoId, uint disciplinaId) external view returns (uint8) {
@@ -84,12 +83,12 @@ contract Academic {
 			return (alunos, notas);
 	}
 
-	function getAcademicCertificate(uint alunoId) public {
+	function getAcademicCertificate(uint alunoId, string memory tokenURI) public returns (uint256){
 		require(bytes(IAlunoContract(_alunoContractAddr).getAlunoById(alunoId).nome).length != 0, "Aluno nao existente");
 		// require(IAlunoContract(_alunoContractAddr).getAlunoById(alunoId).isGraduated == true, "Aluno nao esta apto");
 
-		address aluno = (AlunoContract(_alunoContractAddr).getAlunoById(alunoById)).aluno;
+		address aluno = (AlunoContract(_alunoContractAddr).getAlunoById(alunoId)).aluno;
 
-		return AcademicCertificate(_academicContractAddr).awardCertificate(aluno, tokenURI);
+		return AcademicCertificate(address(this)).awardCertificate(aluno, tokenURI);
 	}
 }

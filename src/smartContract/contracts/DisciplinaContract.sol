@@ -19,10 +19,9 @@ contract DisciplinaContract is IDisciplinaContract {
 	mapping(uint => Disciplina) disciplinaById;
 	mapping(uint => mapping(uint => uint8)) notaByDisciplinaId;
 	
-	constructor(address academicContractAddr, address alunoContractAddress, address academicTokenAddr){
+	constructor(address academicContractAddr, address alunoContractAddress){
 		_academicContractAddr = academicContractAddr;
 		_alunoContractAddr = alunoContractAddress;
-		_academicTokenAddr = academicTokenAddr;
 
 		etapaDisciplinas = Periodo.INSCRICAO_DISCIPLINAS;
 		owner = msg.sender;

@@ -8,18 +8,7 @@ const hre = require("hardhat");
 
 async function main() {
 
-  const AcademicUtils = await hre.ethers.getContractFactory("AcademicUtils");
-  const academicUtils = await AcademicUtils.deploy();
-  await academicUtils.deployed();
-  console.log(
-    `AcademicUtils contract deployed to ${academicUtils.address}`
-  );
-
-  const Academic = await hre.ethers.getContractFactory("Academic", {
-    libraries: {
-      AcademicUtils: academicUtils.address,
-    },
-  });
+  const Academic = await hre.ethers.getContractFactory("Academic");
   const academic = await Academic.deploy();
   await academic.deployed();
 
@@ -33,10 +22,17 @@ async function main() {
   console.log(
     `AlunoContract contract deployed to ${alunoContract.address}`
   );
-
+  
   const result = await academic.setAlunoContractAddress(alunoContract.address);
   await result.wait(1);
-
+  
+    const DisciplinaContract = await hre.ethers.getContractFactory("DisciplinaContract");
+    const disciplinaContract = await DisciplinaContract.deploy(academic.address, alunoContract.address);
+    await disciplinaContract.deployed();
+    console.log(
+      `DisciplinaContract contract deployed to ${disciplinaContract.address}`
+    );
+  
   const AcademicToken = await hre.ethers.getContractFactory("AcademicToken");
   const academicToken = await AcademicToken.deploy();
   await academicToken.deployed();

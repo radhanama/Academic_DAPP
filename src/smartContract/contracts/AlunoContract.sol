@@ -26,9 +26,14 @@ contract AlunoContract is IAlunoContract{
         return alunoById[id];
     }
 
-    function inserirAluno(uint id, string memory nome, address alunoAddress) onlyOwner public override {
+    function inserirAluno(uint id, string memory nome, address alunoAddress) onlyOwner public {
        require(Academic(_academicContractAddr).etapaAlunos() == Periodo.INSCRICAO_ALUNOS, "Fora do periodo de inscricao de aluno");
        alunoById[id] = Aluno(id, nome, alunoAddress, false);
+    }
+
+    function updateAluno(Aluno memory aluno) onlyOwner public {
+        require(bytes(getAlunoById(aluno.id).nome).length != 0, "Aluno nao existente");
+        alunoById[aluno.id] = aluno;
     }
 
     function setAluno(uint id, Aluno memory aluno) onlyOwner public override {
