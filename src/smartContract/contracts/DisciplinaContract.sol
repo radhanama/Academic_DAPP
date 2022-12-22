@@ -32,12 +32,6 @@ contract DisciplinaContract is IDisciplinaContract {
 			_;
 	}
 
-	modifier onlyStudent(uint alunoId) {
-		address aluno = AlunoContract(_alunoContractAddr).getAlunoById(alunoId).aluno;
-		require(msg.sender == aluno, "Apenas o aluno pode pagar pela sua disciplina");
-		_;
-	}
-
 	function getDisciplinaById(uint id) external view returns (Disciplina memory) {
 		return disciplinaById[id];
 	}
@@ -54,9 +48,9 @@ contract DisciplinaContract is IDisciplinaContract {
 		inscritosDisciplinaById[disciplinaId].push(alunoId);
 	}
 
-	function pagarDisciplina(uint alunoId, uint amount) onlyStudent(alunoId) public {
+	function pagarDisciplina(uint amount) public {
 		require(amount > 0, "Valor invalido");
 
-		AcademicToken(_academicContractAddr).transferFrom(msg.sender, address(this), amount);
+		AcademicToken(_academicContractAddr).transferFrom(msg.sender, owner, amount);
 	}
 }

@@ -4,7 +4,7 @@ function AcademicToken(props) {
 
     function tranfere() {
         if (props.academic) {
-            props.academic.transfer(1)
+            props.academic.pagarDisciplina(1)
                 .them(
                     x => {
                         if (x === undefined)
