@@ -35,10 +35,6 @@ contract AlunoContract is IAlunoContract{
         require(bytes(getAlunoById(aluno.id).nome).length != 0, "Aluno nao existente");
         alunoById[aluno.id] = aluno;
     }
-
-    function setAluno(uint id, Aluno memory aluno) onlyOwner public override {
-        alunoById[id] = aluno;
-    }
     
     function myPrivateFuncion() private {
 

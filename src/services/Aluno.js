@@ -8,8 +8,12 @@ export class AlunoServices {
         const academicContract = new ethers.Contract(AlunoContract, AlunoAbi.abi, provider);
         this.academicContractWithSigner = academicContract.connect(provider.getSigner());
     }
-    async insert(id, name) {
-        const result = await this.academicContractWithSigner.inserirAluno(id, name)
+    async insert(id, name, address) {
+        const result = await this.academicContractWithSigner.inserirAluno(id, name, address)
+        return result;
+    }
+    async getAluno(id) {
+        const result = await this.academicContractWithSigner.getAlunoById(id)
         return result;
     }
 }

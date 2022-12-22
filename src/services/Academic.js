@@ -12,4 +12,24 @@ export class AcademicServices {
         const result = await this.academicContractWithSigner.getAcademicCertificate(this.academicContractWithSigner.address, tokenUri)
         return result;
     }
+    async setAlunoGraduated(id) {
+        const result = await this.academicContractWithSigner.setAlunoGraduated(id)
+        return result;
+    }
+    async abrirLancamentoNota() {
+        const result = await this.academicContractWithSigner.abrirLancamentoNota()
+        return result;
+    }
+    async inserirNota(id, diciplina, nota) {
+        const result = await this.academicContractWithSigner.inserirNota(id, diciplina, nota)
+        return result;
+    }
+    async getNotaAlunoByDisciplinaId(id, diciplina) {
+        const result = await this.academicContractWithSigner.getNotaAlunoByDisciplinaId(id, diciplina)
+        return result;
+    }
+    async listarNotasDisciplina(id, diciplina) {
+        const result = await this.academicContractWithSigner.listarNotasDisciplina(diciplina)
+        return result;
+    }
 }

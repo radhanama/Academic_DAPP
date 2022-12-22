@@ -26,6 +26,10 @@ function InserirAluno(props) {
             <input id="name" name="name" {...register("name", { required: true })} />
             {errors.exampleRequired && <span>This field is required</span>}
             <br></br>
+            <label for="aluno">aluno address:</label>
+            <input id="aluno" name="aluno" {...register("aluno", { required: true })} />
+            {errors.exampleRequired && <span>This field is required</span>}
+            <br></br>
             <input type="submit" />
         </form>
     )

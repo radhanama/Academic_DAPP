@@ -1,6 +1,6 @@
 import React from 'react';
 
-function AcademicCertificate(props) {
+function Academic(props) {
 
     function awardCertificate() {
         if (props.academic) {
@@ -22,4 +22,4 @@ function AcademicCertificate(props) {
     )
 }
 
-export default AcademicCertificate;
+export default Academic;
