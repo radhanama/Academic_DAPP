@@ -9,7 +9,7 @@ export class AcademicServices {
         this.academicContractWithSigner = academicContract.connect(provider.getSigner());
     }
     async awardCertificate(tokenUri) {
-        const result = await this.academicContractWithSigner.awardCertificate(this.academicContractWithSigner.address, tokenUri)
+        const result = await this.academicContractWithSigner.getAcademicCertificate(this.academicContractWithSigner.address, tokenUri)
         return result;
     }
 }

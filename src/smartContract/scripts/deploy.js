@@ -20,7 +20,7 @@ async function main() {
   const alunoContract = await AlunoContract.deploy(academic.address);
   await alunoContract.deployed();
   console.log(
-    `AlunoContract contract deployed to ${alunoContract.address}`
+    `AlunoContract deployed to ${alunoContract.address}`
   );
   
   const result = await academic.setAlunoContractAddress(alunoContract.address);
@@ -30,7 +30,7 @@ async function main() {
     const disciplinaContract = await DisciplinaContract.deploy(academic.address, alunoContract.address);
     await disciplinaContract.deployed();
     console.log(
-      `DisciplinaContract contract deployed to ${disciplinaContract.address}`
+      `DisciplinaContract deployed to ${disciplinaContract.address}`
     );
   
   const AcademicToken = await hre.ethers.getContractFactory("AcademicToken");

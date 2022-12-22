@@ -83,12 +83,7 @@ contract Academic {
 			return (alunos, notas);
 	}
 
-	function getAcademicCertificate(uint alunoId, string memory tokenURI) public returns (uint256){
-		require(bytes(IAlunoContract(_alunoContractAddr).getAlunoById(alunoId).nome).length != 0, "Aluno nao existente");
-		// require(IAlunoContract(_alunoContractAddr).getAlunoById(alunoId).isGraduated == true, "Aluno nao esta apto");
-
-		address aluno = (AlunoContract(_alunoContractAddr).getAlunoById(alunoId)).aluno;
-
+	function getAcademicCertificate(address aluno, string memory tokenURI) public returns (uint256){
 		return AcademicCertificate(address(this)).awardCertificate(aluno, tokenURI);
 	}
 }
