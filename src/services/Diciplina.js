@@ -9,7 +9,7 @@ export class DiciplinaServices {
         this.academicContractWithSigner = academicContract.connect(provider.getSigner());
     }
     async insert(id, nome, professor) {
-        const result = await this.academicContractWithSigner.inserirDiciplina(id, nome, professor)
+        const result = await this.academicContractWithSigner.inserirDisciplina(id, nome, professor)
         return result;
     }
     async getDisciplinaById(id) {
