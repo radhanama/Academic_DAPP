@@ -1,21 +1,11 @@
 import React from 'react';
+import { useState } from 'react';
 import { useForm } from "react-hook-form";
 
 function Academic(props) {
-
-    async function awardCertificate() {
-        if (props.academic) {
-            var result = await props.academic.awardCertificate(1)
-            console.log(result)
-        } else {
-            throw new Error('Not connected');
-        }
-    }
-
     return (<>
-        <div>
-            <button type="button" onClick={awardCertificate}>Receber meu certificado!</button>
-        </div>
+        <h3>awardCertificate</h3>
+        <AwardCertificate academic={props.academic}/>
         <h3>SetAlunoGraduated</h3>
         <SetAlunoGraduated academic={props.academic}/>
         <h3>AbrirLancamentoNota</h3>
@@ -30,11 +20,28 @@ function Academic(props) {
     )
 }
 
+function AwardCertificate(props) {
+    async function awardCertificate() {
+        if (props.academic) {
+            var result = await props.academic.awardCertificate(1)
+            console.log(result)
+        } else {
+            throw new Error('Not connected');
+        }
+    }
+
+    return (
+        <div>
+            <button type="button" onClick={awardCertificate}>Receber meu certificado!</button>
+        </div>
+    )
+}
+
 function SetAlunoGraduated(props) {
     const { register, handleSubmit, formState: { errors } } = useForm();
     async function ecxecute(form) {
         if (props.academic) {
-            const result = await props.academic.setAlunoGraduated(form.id)
+            const result = await props.academic.setAlunoGraduated(parseInt(form.id))
             console.log(result)
         } else {
             throw new Error('Not connected');
@@ -89,16 +96,19 @@ function InserirNota(props) {
     </form>)
 }
 function GetNotaAlunoByDisciplinaId(props) {
+    const [aluno, setAluno] = useState()
     const { register, handleSubmit, formState: { errors } } = useForm();
     async function ecxecute(form) {
         if (props.academic) {
-            const result = await props.academic.getNotaAlunoByDisciplinaId(form.id, form.disciplina)
-            console.log(result)
+            const result = await props.academic.getNotaAlunoByDisciplinaId(parseInt(form.id), parseInt(form.disciplina))
+            setAluno(result)
         } else {
             throw new Error('Not connected');
         }
     }
-    return (<form onSubmit={handleSubmit(ecxecute)}>
+    return (
+        <>
+    <form onSubmit={handleSubmit(ecxecute)}>
         <label for="id">id:</label>
         <input id="id" name="id" defaultValue="55" {...register("id", { required: true })} />
         {errors.exampleRequired && <span>This field is required</span>}
@@ -108,25 +118,31 @@ function GetNotaAlunoByDisciplinaId(props) {
         {errors.exampleRequired && <span>This field is required</span>}
         <br></br>
         <input type="submit" />
-    </form>)
+    </form>
+    {aluno !== undefined?(<div>{aluno}</div>):<div>nada</div>}
+    </>
+    )
 }
 function ListarNotasDisciplina(props) {
+    const [notas, setNotas] = useState()
     const { register, handleSubmit, formState: { errors } } = useForm();
     async function ecxecute(form) {
         if (props.academic) {
-            const result = await props.academic.listarNotasDisciplina(form.disciplina)
+            const result = await props.academic.listarNotasDisciplina(parseInt(form.disciplina))
+            setNotas(result)
             console.log(result)
         } else {
             throw new Error('Not connected');
         }
     }
-    return (<form onSubmit={handleSubmit(ecxecute)}>
+    return (<><form onSubmit={handleSubmit(ecxecute)}>
         <label for="disciplina">Disciplina:</label>
         <input id="disciplina" {...register("disciplina", { required: true })} />
         {errors.exampleRequired && <span>This field is required</span>}
         <br></br>
         <input type="submit" />
-    </form>)
+    </form>
+    {notas !== undefined?(<div>{notas}</div>):<div>nada</div>}</>)
 }
 
 export default Academic;

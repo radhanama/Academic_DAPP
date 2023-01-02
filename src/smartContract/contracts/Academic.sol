@@ -16,9 +16,9 @@ contract Academic {
   Periodo public etapaAlunos;
   Periodo public etapaDisciplinas;
 
-	mapping(uint => mapping(uint => uint8)) alunoIdToDisciplinaIdToNota;
-	mapping(uint => Disciplina) disciplinaById;
-	mapping(uint => uint[]) alunosByDisciplina;
+	mapping(uint => mapping(uint => uint8)) public alunoIdToDisciplinaIdToNota;
+	mapping(uint => Disciplina) public disciplinaById;
+	mapping(uint => uint[]) public alunosByDisciplina;
 
 	address owner;
 	address _alunoContractAddr;
@@ -36,7 +36,6 @@ contract Academic {
 
 	modifier onlyProfessor(uint disciplinaId){
 			Disciplina memory d = disciplinaById[disciplinaId];
-			require(d.professor != address(0), "Disciplina sem professor");
 			require(msg.sender == d.professor, "Nao autorizado");
 			_;
 	}

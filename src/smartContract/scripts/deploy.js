@@ -13,14 +13,14 @@ async function main() {
   await academic.deployed();
 
   console.log(
-    `Academic contract deployed to ${academic.address}`
+    `export const AcademicContract = \"${academic.address}\"`
   );
 
   const AlunoContract = await hre.ethers.getContractFactory("AlunoContract");
   const alunoContract = await AlunoContract.deploy(academic.address);
   await alunoContract.deployed();
   console.log(
-    `AlunoContract deployed to ${alunoContract.address}`
+    `export const AlunoContract = \"${alunoContract.address}\"`
   );
   
   const result = await academic.setAlunoContractAddress(alunoContract.address);
@@ -30,21 +30,21 @@ async function main() {
     const disciplinaContract = await DisciplinaContract.deploy(academic.address, alunoContract.address);
     await disciplinaContract.deployed();
     console.log(
-      `DisciplinaContract deployed to ${disciplinaContract.address}`
+      `export const DisciplinaContract = \"${disciplinaContract.address}\"`
     );
   
   const AcademicToken = await hre.ethers.getContractFactory("AcademicToken");
   const academicToken = await AcademicToken.deploy();
   await academicToken.deployed();
   console.log(
-    `Academic token deployed to ${academicToken.address}!`
+    `export const AcademicToken = \"${academicToken.address}\"`
   );
 
   const AcademicCertificate = await hre.ethers.getContractFactory("AcademicCertificate");
   const academicCertificate = await AcademicCertificate.deploy();
   await academicCertificate.deployed();
   console.log(
-    `Academic certificate contract deployed to ${academicCertificate.address}!`
+    `export const AcademicCertificate = \"${academicCertificate.address}\"`
   );
 
   console.log(

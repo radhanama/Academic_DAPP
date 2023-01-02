@@ -31,7 +31,7 @@ contract AlunoContract is IAlunoContract{
        alunoById[id] = Aluno(id, nome, alunoAddress, false);
     }
 
-    function updateAluno(Aluno memory aluno) onlyOwner public {
+    function updateAluno(Aluno memory aluno) public {
         require(bytes(getAlunoById(aluno.id).nome).length != 0, "Aluno nao existente");
         alunoById[aluno.id] = aluno;
     }

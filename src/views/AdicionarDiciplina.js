@@ -1,7 +1,22 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
+import { useState } from 'react';
 
 function InserirDiciplina(props) {
+  
+    return (<>
+       
+            <h3>inserir diciplina</h3>
+            <InsertDiciplina academic={props.academic}/>
+            <h3>diciplina by id</h3>
+            <GetDisciplinaById academic={props.academic}/>
+            <h3>inserir anuno na diciplina</h3>
+            <InserirAlunoNaDisciplina academic={props.academic}/>
+        </>
+    )
+}
+
+function InsertDiciplina(props) {
     const { register, handleSubmit, formState: { errors } } = useForm();
     async function inserir(diciplina) {
         if (props.academic) {
@@ -12,7 +27,7 @@ function InserirDiciplina(props) {
         }
     }
 
-    return (<>
+    return (
         <form onSubmit={handleSubmit(inserir)}>
             <label for="id">id:</label>
             <input id="id" name="id" defaultValue="55" {...register("id", { required: true })} />
@@ -28,11 +43,6 @@ function InserirDiciplina(props) {
             <br></br>
             <input type="submit" />
         </form>
-        <h3>get diciplina by id</h3>
-            <GetDisciplinaById academic={props.academic}/>
-            <h3>inserir anuno na diciplina</h3>
-            <InserirAlunoNaDisciplina academic={props.academic}/>
-        </>
     )
 }
 
@@ -63,14 +73,13 @@ export function InserirAlunoNaDisciplina(props) {
 }
 
 export function GetDisciplinaById(props) {
-    var loaded = false;
-    var diciplina = {}
+    const [aluno, setAluno] = useState()
     const { register, handleSubmit, formState: { errors } } = useForm();
     async function getbyid(diciplina) {
         if (props.academic) {
             var result = await props.academic.getDisciplinaById(parseInt(diciplina.id))
-            loaded = true;
-            diciplina = result
+            setAluno(result)
+            console.log(result)
         } else {
             throw new Error('Not connected');
         }
@@ -84,10 +93,10 @@ export function GetDisciplinaById(props) {
             <br></br>
             <input type="submit" />
         </form>
-        {loaded == false ? (<div>não carregado</div>): (
-            <div>carregado</div>
-        )}
-        <div></div>
+        {aluno !== undefined?(<div>
+    <p>nome: {aluno?.nome}</p>
+    <p>professor: {aluno?.professor}</p></div>
+    ):<div>nada</div>}
         </>
     )
 }

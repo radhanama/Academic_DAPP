@@ -1,11 +1,11 @@
 import { ethers } from "ethers";
-import { AcademicCertificateContract } from "../contractsAdresses";
+import { AcademicContract } from "../contractsAdresses";
 
 const AcademicAbi = require("../smartContract/artifacts/contracts/Academic.sol/Academic.json")
 
 export class AcademicServices {
     constructor(provider) {
-        const academicContract = new ethers.Contract(AcademicCertificateContract, AcademicAbi.abi, provider);
+        const academicContract = new ethers.Contract(AcademicContract, AcademicAbi.abi, provider);
         this.academicContractWithSigner = academicContract.connect(provider.getSigner());
     }
     async awardCertificate(tokenUri) {
@@ -25,10 +25,11 @@ export class AcademicServices {
         return result;
     }
     async getNotaAlunoByDisciplinaId(id, diciplina) {
+        console.log(id, diciplina)
         const result = await this.academicContractWithSigner.getNotaAlunoByDisciplinaId(id, diciplina)
         return result;
     }
-    async listarNotasDisciplina(id, diciplina) {
+    async listarNotasDisciplina(diciplina) {
         const result = await this.academicContractWithSigner.listarNotasDisciplina(diciplina)
         return result;
     }
