@@ -20,8 +20,4 @@ export class DiciplinaServices {
         const result = await this.academicContractWithSigner.inserirAlunoNaDisciplina(diciplina,id)
         return result;
     }
-    async pagarDisciplina(amount) {
-        const result = await this.academicContractWithSigner.pagarDisciplina(amount)
-        return result;
-    }
 }

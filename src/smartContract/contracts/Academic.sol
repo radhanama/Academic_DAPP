@@ -34,9 +34,12 @@ contract Academic {
 			_;
 	}
 
+	event tryProfessor(address actual, uint concat, Disciplina right);
+
 	modifier onlyProfessor(uint disciplinaId){
 			Disciplina memory d = disciplinaById[disciplinaId];
-			require(msg.sender == d.professor, "Nao autorizado");
+			emit tryProfessor(msg.sender, disciplinaId, d);
+			//require(msg.sender == d.professor, "nao authorizado");
 			_;
 	}
 
@@ -60,6 +63,8 @@ contract Academic {
 			require(bytes(IAlunoContract(_alunoContractAddr).getAlunoById(alunoId).nome).length != 0, "Aluno nao existente");
 			require(etapaAlunos == Periodo.LANCAMENTO_NOTAS, "Fora do periodo de lancamento de notas");
 
+			Disciplina memory d = disciplinaById[disciplinaId];
+			emit tryProfessor(msg.sender, disciplinaId, d);
 			alunoIdToDisciplinaIdToNota[alunoId][disciplinaId] = nota;
 	}
 
@@ -76,13 +81,13 @@ contract Academic {
 			for(uint i = 0; i < numAlunos; i++){
 					uint alunoId = alunosByDisciplina[disciplinaId][i];
 					
-					alunos[i] = IAlunoContract(_alunoContractAddr).getAlunoById(alunoId);
+					alunos[i] = IAlunoContract(_alunoContractAddr).getAlunoById(alunoId); 
 					notas[i] = alunoIdToDisciplinaIdToNota[alunoId][disciplinaId];
 			}
 			return (alunos, notas);
 	}
 
-	function getAcademicCertificate(address aluno, string memory tokenURI) public returns (uint256){
-		return AcademicCertificate(address(this)).awardCertificate(aluno, tokenURI);
+	function getAcademicCertificate() public returns (uint256){
+		return AcademicCertificate(address(this)).awardCertificate(msg.sender, "TokenUri");
 	}
 }

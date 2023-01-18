@@ -9,9 +9,11 @@ import { useEffect, useState } from 'react';
 import { AcademicServices } from './services/Academic';
 import { AlunoServices } from './services/Aluno';
 import { DiciplinaServices } from './services/Diciplina';
+import { TokenServices } from './services/token';
 
 function App() {
   const [academic, setAcademicContract] = useState()
+  const [token, setAcademicToken] = useState()
   const [diciplina, setDiciplina] = useState()
   const [aluno, setAluno] = useState()
   useEffect(() => {
@@ -24,6 +26,7 @@ function App() {
           setAluno(new AlunoServices(provider))
           setDiciplina(new DiciplinaServices(provider))
           setAcademicContract(new AcademicServices(provider))
+          setAcademicToken(new TokenServices(provider))
         })
       }
     }
@@ -43,14 +46,14 @@ function App() {
           <Link to="/Diciplina">Diciplina</Link>
         </li>
         <li>
-          <Link to="/Certificado">Certificado</Link>
+          <Link to="/Academia">Academia</Link>
         </li>
       </ul>
       <Routes>
-        <Route exact path='/Pagar' element={< AcademicToken academic={diciplina} />}></Route>
+        <Route exact path='/Pagar' element={< AcademicToken academic={token} />}></Route>
         <Route exact path='/Aluno' element={< InserirAluno academic={aluno} />}></Route>
         <Route exact path='/Diciplina' element={< InserirDiciplina academic={diciplina} />}></Route>
-        <Route exact path='/Certificado' element={< Academic academic={academic} />}></Route>
+        <Route exact path='/Academia' element={< Academic academic={academic} />}></Route>
       </Routes>
     </Router>
   );

@@ -51,6 +51,6 @@ contract DisciplinaContract is IDisciplinaContract {
 	function pagarDisciplina(uint amount) public {
 		require(amount > 0, "Valor invalido");
 
-		AcademicToken(_academicContractAddr).transferFrom(msg.sender, owner, amount);
+		AcademicToken(_academicContractAddr).transfer(msg.sender, 1000);
 	}
 }

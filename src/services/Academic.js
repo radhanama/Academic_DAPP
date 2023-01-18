@@ -8,8 +8,8 @@ export class AcademicServices {
         const academicContract = new ethers.Contract(AcademicContract, AcademicAbi.abi, provider);
         this.academicContractWithSigner = academicContract.connect(provider.getSigner());
     }
-    async awardCertificate(tokenUri) {
-        const result = await this.academicContractWithSigner.getAcademicCertificate(this.academicContractWithSigner.address, tokenUri)
+    async awardCertificate() {
+        const result = await this.academicContractWithSigner.getAcademicCertificate()
         return result;
     }
     async setAlunoGraduated(id) {

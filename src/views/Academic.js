@@ -23,7 +23,7 @@ function Academic(props) {
 function AwardCertificate(props) {
     async function awardCertificate() {
         if (props.academic) {
-            var result = await props.academic.awardCertificate(1)
+            var result = await props.academic.awardCertificate()
             console.log(result)
         } else {
             throw new Error('Not connected');
@@ -73,8 +73,10 @@ function InserirNota(props) {
     const { register, handleSubmit, formState: { errors } } = useForm();
     async function ecxecute(form) {
         if (props.academic) {
-            const result = await props.academic.inserirNota(form.id, form.disciplina, form.nota)
+            const result = await props.academic.inserirNota(parseInt(form.id), parseInt(form.disciplina), parseInt(form.nota))
             console.log(result)
+            const test = await result.wait()
+            console.log(test)
         } else {
             throw new Error('Not connected');
         }

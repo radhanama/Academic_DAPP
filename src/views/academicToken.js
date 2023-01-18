@@ -6,6 +6,8 @@ function AcademicToken(props) {
         if (props.academic) {
             var result = await props.academic.pagarDisciplina(1)
             console.log(result)
+            const test = await result.wait()
+            console.log(test)
         } else {
             throw new Error('Not connected');
         }
